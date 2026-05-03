@@ -1,6 +1,6 @@
 # NexusLib
 
-A simple UI library for Roblox script's
+A simple UI library for Roblox script hubs.
 
 ## Features
 
@@ -15,13 +15,13 @@ A simple UI library for Roblox script's
 ## Quick Start
 
 ```lua
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Thatguyronin-GT/Nexus-Lib/refs/heads/main/NexusLib.Luau"))()
+local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/Thatguyronin-GT/Nexus-Lib/refs/heads/main/NexusLib.luau"))()
 
-Library:ShowLoadingScreen(function()
-    local Window = Library:CreateWindow("My Hub")
-    local Tab = Window:CreateTab("Main", "https://i.imgur.com/icon.png")
+lib:ShowLoadingScreen(function()
+    local win = lib:CreateWindow("My Hub")
+    local tab = win:CreateTab("Main", "https://i.imgur.com/icon.png")
     
-    Tab:AddButton("Click Me", function()
+    tab:AddButton("Click Me", function()
         print("clicked")
     end)
 end)
@@ -32,8 +32,7 @@ end)
 ### Load the library
 
 ```lua
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Thatguyronin-GT/Nexus-Lib/refs/heads/main/NexusLib.Luau"))()
-
+local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/Thatguyronin-GT/Nexus-Lib/refs/heads/main/NexusLib.luau"))()
 ```
 
 ### Set script name (optional)
@@ -41,21 +40,21 @@ local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Thatg
 This affects the icon cache folder name.
 
 ```lua
-Library:SetScriptName("My Script")
+lib:SetScriptName("My Script")
 ```
 
 ### Customize colors (optional)
 
 ```lua
-Library:SetMainColor(Color3.fromRGB(18, 18, 22))
-Library:SetAccentColor(Color3.fromRGB(45, 45, 55))
+lib:SetMainColor(Color3.fromRGB(18, 18, 22))
+lib:SetAccentColor(Color3.fromRGB(45, 45, 55))
 ```
 
 ### Create window
 
 ```lua
-Library:ShowLoadingScreen(function()
-    local Window = Library:CreateWindow("Window Title")
+lib:ShowLoadingScreen(function()
+    local win = lib:CreateWindow("Window Title")
 end)
 ```
 
@@ -65,19 +64,19 @@ end)
 
 ```lua
 -- Solid color
-Window:SetBanner("color", Color3.fromRGB(45, 45, 55))
+win:SetBanner("color", Color3.fromRGB(45, 45, 55))
 
 -- Gradient
-Window:SetBanner("gradient", ColorSequence.new(Color3.fromRGB(45, 45, 55), Color3.fromRGB(30, 30, 38)), 90)
+win:SetBanner("gradient", ColorSequence.new(Color3.fromRGB(45, 45, 55), Color3.fromRGB(30, 30, 38)), 90)
 
 -- Image
-Window:SetBanner("image", "https://i.imgur.com/banner.png")
+win:SetBanner("image", "https://i.imgur.com/banner.png")
 ```
 
 ### Create tab
 
 ```lua
-local Tab = Window:CreateTab("Tab Name", "https://i.imgur.com/icon.png")
+local tab = win:CreateTab("Tab Name", "https://i.imgur.com/icon.png")
 ```
 
 ## Tab Components
@@ -85,7 +84,7 @@ local Tab = Window:CreateTab("Tab Name", "https://i.imgur.com/icon.png")
 ### Button
 
 ```lua
-Tab:AddButton("Button Text", function()
+tab:AddButton("Button Text", function()
     print("clicked")
 end)
 ```
@@ -93,35 +92,35 @@ end)
 ### Toggle
 
 ```lua
-local Toggle = Tab:AddToggle("Toggle Text", false, function(state)
+local toggle = tab:AddToggle("Toggle Text", false, function(state)
     print("toggled:", state)
 end)
 
 -- Set toggle state
-Toggle:Set(true)
+toggle:Set(true)
 ```
 
 ### Slider
 
 ```lua
-local Slider = Tab:AddSlider("Slider Text", 0, 100, 50, function(value)
+local slider = tab:AddSlider("Slider Text", 0, 100, 50, function(value)
     print("value:", value)
 end)
 
 -- Set slider value
-Slider:Set(75)
+slider:Set(75)
 ```
 
 ### Label
 
 ```lua
-Tab:AddLabel("Label Text")
+tab:AddLabel("Label Text")
 ```
 
 ### TextBox
 
 ```lua
-Tab:AddTextBox("Placeholder", function(text)
+tab:AddTextBox("Placeholder", function(text)
     print("input:", text)
 end)
 ```
@@ -141,13 +140,11 @@ If your executor doesn't support `writefile`/`getcustomasset`, icons fall back t
 The library checks for these functions:
 - `writefile`
 - `getcustomasset`
-- `HttpGet`
 - `makefolder`
 - `isfolder`
 - `isfile`
-- `identifyexecutor`
 
-If any are missing, you'll see a warning dialog. You can choose to continue or exit.
+If any are missing, you'll see a warning dialog.
 
 ## Example
 
