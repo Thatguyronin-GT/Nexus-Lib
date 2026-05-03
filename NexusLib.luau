@@ -129,6 +129,7 @@ function lib:ShowLoadingScreen(callback)
     bg.BackgroundColor3 = Color3.fromRGB(8,8,12)
     bg.BackgroundTransparency = 1
     bg.BorderSizePixel = 0
+    
     tweens:Create(bg, TweenInfo.new(0.4), {BackgroundTransparency=0}):Play()
     
     local frame = Instance.new("Frame", gui)
@@ -138,12 +139,14 @@ function lib:ShowLoadingScreen(callback)
     
     local title = Instance.new("TextLabel", frame)
     title.Size = UDim2.new(1,0,0,30)
+    title.Position = UDim2.new(0,0,0,0)
     title.BackgroundTransparency = 1
     title.Text = lib.name
     title.TextColor3 = Color3.fromRGB(255,255,255)
     title.TextSize = 20
     title.Font = Enum.Font.GothamBold
     title.TextTransparency = 1
+    
     tweens:Create(title, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextTransparency=0}):Play()
     
     local status = Instance.new("TextLabel", frame)
@@ -155,6 +158,7 @@ function lib:ShowLoadingScreen(callback)
     status.TextSize = 12
     status.Font = Enum.Font.Gotham
     status.TextTransparency = 1
+    
     tweens:Create(status, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextTransparency=0}):Play()
     
     local bar = Instance.new("Frame", frame)
@@ -164,6 +168,7 @@ function lib:ShowLoadingScreen(callback)
     bar.BorderSizePixel = 0
     bar.BackgroundTransparency = 1
     Instance.new("UICorner", bar).CornerRadius = UDim.new(1,0)
+    
     tweens:Create(bar, TweenInfo.new(0.5), {BackgroundTransparency=0}):Play()
     
     local fill = Instance.new("Frame", bar)
@@ -182,6 +187,7 @@ function lib:ShowLoadingScreen(callback)
     watermark.Font = Enum.Font.Gotham
     watermark.TextXAlignment = Enum.TextXAlignment.Right
     watermark.TextTransparency = 1
+    
     tweens:Create(watermark, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextTransparency=0.5}):Play()
     
     task.spawn(function()
@@ -606,8 +612,8 @@ function lib:CreateWindow(title)
             return box
         end
         
-        function tab:AddDropdown(txt, opts, def, cb)
-            local drop = {sel=def or opts[1], open=false}
+        function tab:AddDropdown(txt, options, def, cb)
+            local drop = {selected=def or options[1], open=false}
             
             local frame = Instance.new("Frame", tab.page)
             frame.Size = UDim2.new(1,-10,0,32)
@@ -629,7 +635,7 @@ function lib:CreateWindow(title)
             btn.Size = UDim2.new(0,70,0,22)
             btn.Position = UDim2.new(1,-78,0.5,-11)
             btn.BackgroundColor3 = cfg.border
-            btn.Text = drop.sel
+            btn.Text = drop.selected
             btn.TextColor3 = cfg.txt
             btn.TextSize = 11
             btn.Font = Enum.Font.Gotham
@@ -658,7 +664,7 @@ function lib:CreateWindow(title)
             local listLayout = Instance.new("UIListLayout", list)
             listLayout.Padding = UDim.new(0,2)
             
-            for _,opt in pairs(opts) do
+            for _,opt in pairs(options) do
                 local optBtn = Instance.new("TextButton", list)
                 optBtn.Size = UDim2.new(1,-4,0,20)
                 optBtn.Position = UDim2.new(0,2,0,0)
@@ -678,7 +684,7 @@ function lib:CreateWindow(title)
                     tweens:Create(optBtn, TweenInfo.new(0.1), {BackgroundColor3=cfg.bg2}):Play()
                 end)
                 optBtn.MouseButton1Click:Connect(function()
-                    drop.sel = opt
+                    drop.selected = opt
                     btn.Text = opt
                     drop.open = false
                     tweens:Create(list, TweenInfo.new(0.15), {Size=UDim2.new(0,70,0,0)}):Play()
@@ -690,7 +696,7 @@ function lib:CreateWindow(title)
             btn.MouseButton1Click:Connect(function()
                 drop.open = not drop.open
                 if drop.open then
-                    local h = #opts*22 + (#opts-1)*2 + 4
+                    local h = #options*22 + (#options-1)*2 + 4
                     tweens:Create(list, TweenInfo.new(0.15), {Size=UDim2.new(0,70,0,h)}):Play()
                     tweens:Create(arrow, TweenInfo.new(0.15), {Rotation=180}):Play()
                 else
@@ -700,8 +706,8 @@ function lib:CreateWindow(title)
             end)
             
             function drop:Set(val)
-                if table.find(opts, val) then
-                    drop.sel = val
+                if table.find(options, val) then
+                    drop.selected = val
                     btn.Text = val
                 end
             end
