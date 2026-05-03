@@ -115,7 +115,6 @@ function lib:ShowLoadingScreen(callback)
     local gui = Instance.new("ScreenGui")
     gui.Name = "Loading"
     gui.ResetOnSpawn = false
-    gui.IgnoreGuiInset = true
     pcall(function() gui.Parent = game:GetService("CoreGui") end)
     if not gui.Parent then gui.Parent = game.Players.LocalPlayer.PlayerGui end
     
@@ -255,6 +254,7 @@ function lib:CreateWindow(title)
     win.bannerBg.Name = "BannerBg"
     win.bannerBg.Size = UDim2.new(1,0,1,0)
     win.bannerBg.BackgroundColor3 = cfg.bg2
+    win.bannerBg.BackgroundTransparency = 0
     win.bannerBg.BorderSizePixel = 0
     win.bannerBg.ZIndex = 0
     
