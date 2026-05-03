@@ -115,6 +115,8 @@ function lib:ShowLoadingScreen(callback)
     local gui = Instance.new("ScreenGui")
     gui.Name = "Loading"
     gui.ResetOnSpawn = false
+    gui.IgnoreGuiInset = true
+    gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
     pcall(function() gui.Parent = game:GetService("CoreGui") end)
     if not gui.Parent then gui.Parent = game.Players.LocalPlayer.PlayerGui end
     
@@ -128,6 +130,7 @@ function lib:ShowLoadingScreen(callback)
     bg.BackgroundColor3 = Color3.fromRGB(8,8,12)
     bg.BackgroundTransparency = 1
     bg.BorderSizePixel = 0
+    bg.ZIndex = 0
     
     tweens:Create(bg, TweenInfo.new(0.4), {BackgroundTransparency=0}):Play()
     
